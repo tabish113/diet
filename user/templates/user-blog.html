@@ -1,0 +1,130 @@
+{% extends 'user-basic.html' %}
+{% block title %}Jharkhand Diet | Blog Area{% endblock %}
+{% block header %}Blog-Post{% endblock %}
+
+{% block body %}
+{% if thank %}
+<script>
+  alert('Insert Successfully...!');
+  window.open('/user/user-blog','_self');
+</script>
+{% endif %}
+{% if done %}
+<script>
+  alert('Data Edit Successfully...!');
+  window.open('/user/user-blog','_self');
+</script>
+{% endif %}
+<form action="/user/user-blog" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+            <div class="row">
+
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <input type="text" class="form-control" id="inputAddress" placeholder="Title" name="nm" required><br>
+           </div>
+
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <input type="text" class="form-control" id="inputAddress" placeholder="Description" name="desc" >
+       </div><br>
+  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+    <div class="card">
+        <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFile3" name="img" >
+          <label class="custom-file-label custom-file-label-secondary" for="customFile3">Add Pdf</label>
+         </div>
+          </div>
+
+ </div>
+ <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+<input type="submit" class="form-control btn btn-primary" name="submit" value="Post Events" style="width:40%; margin-left:30%;">
+</div>
+</div>
+          </form>
+
+					<div class="row gutters"><br>
+          						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"><br>
+          							<div class="card">
+
+          								<div class="card-header">Events {{username}}</div>
+          								<div class="card-body">
+          									<table id="basicExample" class="table table-bordered">
+          										<thead>
+          											<tr>
+          											  <th>Title</th>
+                                  <th>Description</th>
+																	<th>Image</th>
+
+          											  <th>Edit</th>
+
+
+          											</tr>
+          										</thead>
+          										<tbody>
+
+                      {% for i in data %}
+          											<tr>
+          											  <td>{{i.title}}</td>
+																	<td>{{i.desc}}</td>
+																	<td>
+                                 <img src="../media/{{i.img}}" alt="" style="width:300px; height:200px;">
+                                  </td>
+
+
+          											  <td><a href="#" data-toggle="modal" data-target="#bid{{i.b_id}}" class="btn btn-primary" style="width:80%; color:#fff;">
+          											  Edit
+                                </a></td>
+
+
+          											  	</tr>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="bid{{i.b_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit Blog</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <form class="" action="edit-blog" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+                                          <div class="modal-body">
+                                            <input type="text" name="nm" value="{{i.title}}" style="width:100%;">
+                                            <input type="hidden" name="bid" value="{{i.b_id}}" style="width:100%;">
+                                            <input type="hidden" name="eimg" value="{{i.img}}" style="width:100%;">
+
+                                          </div>
+                                          <div class="modal-body">
+                                            <input type="file" name="img"  style="width:100%;">
+                                          </div>
+                                          <div class="modal-body">
+                                            <textarea name="desc" rows="5" cols="65">{{i.desc}}</textarea>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="Submit" class="btn btn-primary">Save changes</button>
+                                          </div>
+                                          </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                        <!-- end modal -->
+
+                            {% endfor %}
+
+
+
+          										</tbody>
+          						    	</table>
+          								</div>
+          							</div>
+          						</div>
+          					</div>
+
+
+
+
+
+					{% endblock %}

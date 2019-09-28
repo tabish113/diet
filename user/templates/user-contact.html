@@ -1,0 +1,57 @@
+{% extends 'user-basic.html' %}
+{% block title %}User Request{% endblock %}
+{% block header %}User-Contact{% endblock %}
+
+{% block body %}
+{% if thank %}
+<script>
+  alert('Delete Successfully.....!');
+  window.open('/user/user-contact','_self');
+</script>
+{% endif %}
+<div class="row gutters"><br>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"><br>
+              <div class="card">
+
+                <div class="card-header">User-Contact</div>
+                <div class="card-body">
+                  <table id="basicExample" class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Number</th>
+                        <th>E-mail</th>
+
+                        <th>Message</th>
+                        <th>Delete</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+
+{% for i in data %}
+                      <tr>
+
+                        <td>{{i.nm}}</td>
+                        <td>{{i.no}}</td>
+                        <td>{{i.em}}</td>
+                        <td>{{i.msg}}</td>
+
+
+                      <td><a href="user-contact1/{{i.c_id}}" class="btn btn-primary" style="width:80%; color:#fff;">
+                      Delete
+                    </a></td>
+
+                          </tr>
+{% endfor %}
+
+
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+{% endblock %}
